@@ -8,7 +8,7 @@ You can search for a place name , use geolocation of the device.
 * Choose base layer (OpenStreetMap & Google Maps)
 
 ## Demo online
-[getlonlat.github.io](http://getlonlat.github.io)
+[https://getlonlat.github.io/app](https://getlonlat.github.io/app)
 
 ## Powered by
 
