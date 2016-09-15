@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+*sublime*
+
+bower_components/*
+node_modules/*
+build/*
+deploy/*

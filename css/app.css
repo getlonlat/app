@@ -1,0 +1,58 @@
+#map {
+	position: relative;
+	height: 560px;
+}
+
+.brand {
+	width: 30px;
+}
+
+.map-controls {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 80%;
+	z-index: 999;
+}
+
+.zoom-controls {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	z-index: 999;
+}
+.zoom-controls .btn {
+}
+
+div.olControlZoom { display: none; }
+
+.olLayerGoogleCopyright {
+    right: 3px;
+    bottom: 2px;
+    left: auto;
+}
+.olLayerGooglePoweredBy {
+    left: 2px;
+    bottom: 2px;
+}
+.olControlAttribution {
+	left: 3px;
+	bottom: 2px;
+	right: auto;
+}
+
+.olPopupContent {
+    padding: 2px 3px;
+    overflow: auto;
+}
+.olPopupCloseBox {
+  background: url("/img/close.gif") no-repeat;
+  cursor: pointer;
+}
+
+.place-search {
+	position: absolute;
+	top: 29px;
+	width: 80%;
+	z-index: 999;
+}

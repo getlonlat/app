@@ -1,0 +1,203 @@
+<h3 class="text-center">
+	<a href="#/">
+		<img src="/img/target.png" alt="" class="brand">
+		getLonLat
+	</a>
+</h3>
+
+<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-addon">
+			<i class="fa fa-search text-muted"></i>
+		</div>
+		<input autofocus ng-model="queryPlace" ng-change="searchPlace(queryPlace);" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
+		   id="queryPlace" type="search" placeholder="Type to search a place" class="form-control input-sm">
+		<ul class="list-group place-search">
+			<li ng-repeat="place in places" ng-click="selectPlace(place);" class="list-group-item text-left">{{ place.formatted_address }}</li>
+		</ul>
+	</div>
+</div>
+
+<div id="map" class="well well-sm">
+	<div class="zoom-controls btn-group-vertical" role="group">
+		<button ng-click="zoomIn()" class="btn btn-default"><i class="fa fa-plus"></i></button>
+		<button ng-click="zoomOut()" class="btn btn-default"><i class="fa fa-minus"></i></button>
+	</div>
+</div>
+
+<fieldset>
+	<div class="row text-center">
+		<div class="col-sm-6 col-md-2">
+			<div class="form-group">
+				<label for="latitude">
+					<b class="text-danger">Y</b>
+					LATITUDE
+				</label>
+				<div class="input-group">
+					<input id="latitude" type="text" class="form-control text-center input-sm" value="{{ latitude }}">
+					<div class="input-group-btn">
+						<button ng-click="copyToClipboard(latitude)" type="button" class="btn btn-sm btn-link" title="Copy to clipboard">
+							<i class="fa fa-clipboard fa-lg text-muted"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-2">
+			<div class="form-group">
+				<label for="longitude">
+					<b class="text-danger">X</b>
+					LONGITUDE
+				</label>
+				<div class="input-group">
+					<input id="longitude" type="text" class="form-control text-center input-sm" value="{{ longitude }}">
+					<div class="input-group-btn">
+						<button ng-click="copyToClipboard(longitude)" type="button" class="btn btn-sm btn-link" title="Copy to clipboard">
+							<i class="fa fa-clipboard fa-lg text-muted"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-5">
+			<div ng-show="showLatLon" class="form-group">
+				<label for="latlon">
+					<b class="text-danger">X Y</b>
+					LATITUDE / LONGITUDE
+					<button ng-click="toggleLatLon()" class="btn btn-xs btn-link">
+						<i class="fa fa-retweet"></i>
+					</button>
+				</label>
+				<div class="input-group">
+					<input id="latlon" type="text" class="form-control text-center input-sm" value="{{ latlon }}">
+					<div class="input-group-btn">
+						<button ng-click="copyToClipboard(latlon)" type="button" class="btn btn-sm btn-link" title="Copy to clipboard">
+							<i class="fa fa-clipboard fa-lg text-muted"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div ng-hide="showLatLon" class="form-group">
+				<label for="lonlat">
+					<b class="text-danger">Y X</b>
+					LONGITUDE / LATITUDE
+					<button ng-click="toggleLatLon()" class="btn btn-xs btn-link">
+						<i class="fa fa-retweet"></i>
+					</button>
+				</label>
+				<div class="input-group">
+					<input id="lonlat" type="text" class="form-control text-center input-sm" value="{{ lonlat }}">
+					<div class="input-group-btn">
+						<button ng-click="copyToClipboard(lonlat)" type="button" class="btn btn-sm btn-link" title="Copy to clipboard">
+							<i class="fa fa-clipboard fa-lg text-muted"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-3">
+			<div class="form-group">
+				<label for="geohash">GEOHASH</label>
+				<div class="input-group">
+					<input id="geohash" type="text" class="form-control text-center input-sm" value="{{ geohash }}">
+					<div class="input-group-btn">
+						<button ng-click="copyToClipboard(geohash)" type="button" class="btn btn-sm btn-link" title="Copy to clipboard">
+							<i class="fa fa-clipboard fa-lg text-muted"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-show="whatishere !== ''" class="form-group">
+		<label for="whatishere">WHAT IS HERE</label>
+		<div class="input-group">
+			<input id="whatishere" type="text" class="form-control input-sm" value="{{ whatishere }}">
+			<div class="input-group-btn">
+				<button ng-click="copyToClipboard(whatishere)" type="button" class="btn btn-sm btn-link" title="Copy to clipboard">
+					<i class="fa fa-clipboard fa-lg text-muted"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</fieldset>
+
+<fieldset class="well well-sm">
+	<div class="row">
+		<div class="col-sm-8 col-md-4">
+			<br>
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<button type="button" ng-click="getPosition()" class="btn btn-success">
+						<i class="fa fa-compass fa-lg"></i>
+						Geolocation
+					</button>
+				</div>
+
+				<div class="btn-group">
+					<button type="button" ng-click="dropMarker()" class="btn btn-primary">
+						<i class="fa fa-dot-circle-o fa-lg"></i>
+						Drop marker
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2 col-md-1">
+			<div class="form-group" title="Map zoom">
+				<label for="zoom">ZOOM</label>
+				<select id="zoom" ng-model="zoom" ng-change="changeZoom(zoom);" class="form-control">
+					<option ng-repeat="z in zooms">{{ z }}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-2 col-md-1">
+			<div class="form-group" title="Geohash precision">
+				<label for="precision">PRECISION</label>
+				<select id="precision" ng-model="precision" ng-change="updateValues();" class="form-control">
+					<option ng-repeat="p in precisions">{{ p }}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-4 col-md-2">
+			<div class="form-group" title="Map base layer">
+				<label for="baselayer">BASE LAYER</label>
+				<select id="baselayer" ng-model="baselayer" ng-change="changeBaselayer(baselayer);" class="form-control">
+					<option value="0">Google Maps</option>
+					<option value="1">OpenStreetMap</option>
+					<option value="2">Google Maps Night</option>
+					<option value="3">Google Maps Hibrid</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-4 col-md-2">
+			<div class="form-group" title="Lat/Lon separator">
+				<label for="separator">SEPARATOR</label>
+				<select id="separator" ng-model="separator" ng-change="updateValues();" class="form-control">
+					<option value="space">Space</option>
+					<option value="comma">Comma</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-4 col-md-2">
+			<div class="form-group" title="Output projection">
+				<label for="projection">OUTPUT EPSG</label>
+				<select id="projection" ng-model="projection" ng-change="updateValues();" class="form-control">
+					<option value="EPSG:4326">EPSG:4326</option>
+					<option value="EPSG:900913">EPSG:900913</option>
+					<option value="EPSG:4269">EPSG:4269</option>
+					<option value="EPSG:2263">EPSG:2263</option>
+					<option value="EPSG:26918">EPSG:26918</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</fieldset>
+
+<p class="text-muted text-center">
+	<small>
+		<b>{{ year }}</b> getLonLat -
+		<a href="https://github.com/getlonlat/app" target="_blank">about</a>
+	</small>
+</p>
