@@ -12,7 +12,7 @@
 
 	function HomeController($scope, geohash, clipboard, toastr, Geocoder, Map) {
 
-		var map_marker = '/img/target.png';
+		var map_marker = 'img/target.png';
 
 		function _init() {
 
