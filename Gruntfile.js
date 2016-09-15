@@ -41,7 +41,7 @@
 				},
 				deploy: {
 					files: [{
-						src: ['build/*'], dest: 'deploy/'
+						src: ['build/**/*'], dest: 'deploy/'
 					}, {
 						src: ['index.html'], dest: 'deploy/index.html'
 					}]
@@ -89,7 +89,7 @@
 		    options: {
 		      base: 'deploy'
 		    },
-		    src: '**/*'
+		    src: ['**']
 		  },
 
 		  notify_hooks: {
