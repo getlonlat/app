@@ -103,7 +103,7 @@
 		grunt.task.run('notify_hooks');
 
 		grunt.registerTask('default', ['concat',  'cssmin', 'copy:assets']);
-		grunt.registerTask('deploy', ['default',  'uglify', 'copy:deploy']);
+		grunt.registerTask('deploy', ['default',  'uglify', 'copy:deploy', 'gh-pages']);
 
 		require('time-grunt')(grunt);
 		require('jit-grunt')(grunt);
