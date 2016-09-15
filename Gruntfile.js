@@ -44,6 +44,8 @@
 						src: ['build/**/*'], dest: 'deploy/'
 					}, {
 						src: ['index.html'], dest: 'deploy/index.html'
+					}, {
+						src: ['app/components/home/home.html'], dest: 'deploy/components/home/home.html'
 					}]
 				}
 			},
@@ -101,7 +103,7 @@
 		grunt.task.run('notify_hooks');
 
 		grunt.registerTask('default', ['concat',  'cssmin', 'copy:assets']);
-		grunt.registerTask('deploy', ['default',  'uglify', 'copy:deploy', 'gh-pages']);
+		grunt.registerTask('deploy', ['default',  'uglify', 'copy:deploy']);
 
 		require('time-grunt')(grunt);
 		require('jit-grunt')(grunt);
